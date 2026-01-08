@@ -10,13 +10,16 @@ UPDATE_INTERVAL = 1
 def fetch_ssc_items():
     try:
         r = requests.get(SSC_URL, timeout=2)
-        data = r.json()
+        data = r.json()           
         return data.get("ITEMS", [])
     except:
         return []
+    with open('SSC Traffic.txt', 'a+') as file:
+            file.write(data.get("ITEMS", []))
 
 def convert_to_fsd(item):
-    altitude_ft = item.get("AGL", 0) * 3.28084
+    #altitude_ft = item.get("AGL", 0) * 3.28084
+    altitude_ft = item.get("AGL", 0) 
     groundspeed = item.get("GS", 0)
     heading = item.get("TH", 0)
 
@@ -49,11 +52,10 @@ try:
         for item in items:
             fsd = convert_to_fsd(item)
             conn.sendall(fsd.encode())
-
         time.sleep(UPDATE_INTERVAL)
 
 except KeyboardInterrupt:
-    print("Stopping SSC-Tracker → Euroscope feeder")
+    print("Stopping SSC-Tracker - Euroscope feeder")
 finally:
     conn.close()
     sock.close()
