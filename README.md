@@ -17,3 +17,9 @@ Configuration Steps
 4) Change the server from AUTOMATIC to 127.0.0.1 / localhost / your machine's IP
 5) Uncheck 'Connect to VATSIM' below
 6) Before pressing 'Connect' in the bottom left, open SSC-Tracker and run SSC - Euroscope.py
+
+Future Plans
+
+1) Integrate FSHub.io for integrated flight plans
+2) SSR allocation
+3) Simbrief integration
